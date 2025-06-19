@@ -4,11 +4,25 @@ import { Link, Outlet } from "react-router-dom";
 const Layout = () => {
 	return (
 		<>
-			<nav className="min-h-26 bg-amber-50 text-center text-amber-950">
-				<Link to="/">Home</Link>
-				<Link to="/">Home</Link>
+			<nav
+				className="bg-sky-950 text-white "
+				style={{ padding: "1rem" }}
+			>
+				<div className="w-7xl flex justify-between justify-self-center">
+					<Link
+						to="/"
+						className="text-2xl font-bold"
+					>
+						IamMovie
+					</Link>
+					<Link to="/">Home</Link>
+				</div>
 			</nav>
-			<div className="min-h-210">
+			<div
+				className="min-h-screen flex w-7xl justify-self-center"
+				style={{ marginTop: "3rem" }}
+			>
+				<div className="w-md">menu</div>
 				<Outlet />
 			</div>
 
