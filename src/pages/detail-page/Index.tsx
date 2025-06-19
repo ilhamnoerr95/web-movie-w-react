@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 const Index = () => {
 	const { id } = useParams();
-	return <div>{id}</div>;
+	return <div className="font-bold">{id}</div>;
 };
 
 export default Index;

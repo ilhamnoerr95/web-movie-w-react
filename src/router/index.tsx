@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Layout from "../components/template/Layout";
-import Home from "../pages/home";
+import Home from "../pages/home/Index";
 import DetailPage from "../pages/detail-page/Index";
 import PageNotFound from "../pages/NotFound";
 
