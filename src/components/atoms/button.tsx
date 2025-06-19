@@ -3,16 +3,29 @@ import React from "react";
 type Etype = "button" | "submit" | "reset";
 
 type Iprops = {
-	text: string;
+	text: string | number;
 	type?: Etype;
-	onClick: () => void;
+	onClick?: () => void;
+	disabled?: boolean;
+	className?: string;
+	key?: any;
 };
 
 const Button: React.FC<Iprops> = (props) => {
-	const { text, type = "button", onClick } = props;
+	const {
+		text,
+		key,
+		type = "button",
+		onClick,
+		disabled = false,
+		className,
+	} = props;
 
 	return (
 		<button
+			key={key}
+			className={className}
+			disabled={disabled}
 			type={type}
 			onClick={onClick}
 		>
