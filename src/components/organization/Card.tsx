@@ -5,13 +5,16 @@ const Card: React.FC<{
 	img: string;
 	publish: string;
 	key: number;
+	onClick: () => void;
 }> = (props) => {
-	const { title, img, publish, key } = props;
+	const { title, img, publish, key, onClick } = props;
 	const prefixUrl = "https://media.themoviedb.org/t/p/w220_and_h330_face/";
 	return (
 		<div
+			onClick={onClick}
 			key={key}
 			className="
+				cursor-pointer
 				max-w-xs h-120 w-60 mx-auto
 				bg-white rounded-md shadow-lg 
 				overflow-hidden flex flex-col justify-between"

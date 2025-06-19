@@ -1,11 +1,12 @@
 import React from "react";
 import Card from "../../components/organization/Card";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Pagination from "../../components/organization/Pagination";
 import Loader from "../../components/atoms/Loader";
 
 const Index = () => {
+	const navigate = useNavigate();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const page = searchParams.get("page") || "1";
 
@@ -62,6 +63,9 @@ const Index = () => {
 				) : (
 					movieData?.results.map((movie: any, index: number) => (
 						<Card
+							onClick={() => {
+								navigate(`/detail-page/${movie.id}`);
+							}}
 							key={index}
 							title={movie.title}
 							publish={movie.release_date}

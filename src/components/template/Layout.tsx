@@ -1,7 +1,11 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Layout = () => {
+	const location = useLocation();
+	const detailPage = location.pathname.includes("detail-page");
+
 	return (
 		<>
 			<nav
@@ -19,10 +23,12 @@ const Layout = () => {
 				</div>
 			</nav>
 			<div
-				className="min-h-screen flex w-7xl justify-self-center"
-				style={{ marginTop: "3rem" }}
+				className={`min-h-screen flex ${
+					detailPage ? "w-screen" : "w-7xl"
+				} justify-self-center`}
+				style={{ marginTop: detailPage ? 0 : "3rem" }}
 			>
-				<div className="w-md">menu</div>
+				{detailPage ? "" : <div className="w-md">menu</div>}
 				<Outlet />
 			</div>
 
