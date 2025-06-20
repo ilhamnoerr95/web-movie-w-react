@@ -24,7 +24,7 @@ const Index = () => {
 				</div>
 			) : (
 				<div className="header w-screen ">
-					<div className="custom-bg w-7xl text-white flex justify-self-center">
+					<div className="custom-bg w-7xl text-white flex justify-self-center gap-4">
 						<Card
 							img={movieDetail?.poster_path}
 							title={movieDetail?.original_title}
@@ -32,6 +32,31 @@ const Index = () => {
 							bgColor="bg-sky-900"
 							txtColor="text-white"
 						/>
+						<div>
+							<p className="text-4xl font-bold text-white">
+								{movieDetail?.original_title}
+							</p>
+							<p className="text-sm font-normal">
+								{movieDetail?.release_date} ({movieDetail?.original_language}){" "}
+								{movieDetail?.genres.map(
+									(genre: { id: string; name: string }) => genre?.name + ", ",
+								)}
+							</p>
+							<p
+								style={{ marginTop: "2rem" }}
+								className="flex flex-col gap-2"
+							>
+								<i className="font-light">{movieDetail?.tagline}</i>
+								<p className="text-sm font-bold">Overview</p>
+								<p className="text-sm font-normal mt-2">
+									{movieDetail?.overview}
+								</p>
+							</p>
+							<p style={{ marginTop: "2rem" }}>
+								<p className="font-bold text-sm">Director</p>
+								<p className="font-normal text-xs">Ilham Nr</p>
+							</p>
+						</div>
 					</div>
 				</div>
 			)}
