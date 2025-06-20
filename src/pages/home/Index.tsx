@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Pagination from "../../components/organization/Pagination";
 import Loader from "../../components/atoms/Loader";
-import { useFilter } from "../../store/filter.store";
+import { useFilter, type Filter } from "../../store/filter.store";
 
 const Index = () => {
 	const navigate = useNavigate();
@@ -18,7 +18,6 @@ const Index = () => {
 
 		const defaultParams: Record<string, string> = {
 			page: "1",
-			sort: "asc",
 			filter: "all",
 			search: "",
 		};
@@ -36,8 +35,7 @@ const Index = () => {
 		}
 		// Sinkronkan ke Zustand store
 		state.updatePage(newParams.page);
-		state.updateSort(newParams.sort as "asc" | "desc");
-		state.updateFilter(newParams.filter);
+		state.updateFilter(newParams.filter as Filter);
 		state.updateSearch(newParams.search);
 	}, []);
 
@@ -48,7 +46,7 @@ const Index = () => {
 			{
 				page,
 				include_adult: false,
-				include_vide: false,
+				include_video: false,
 				language: "en-US",
 				query: state.search,
 			},
@@ -58,22 +56,33 @@ const Index = () => {
 	});
 
 	// get all data
-	const {
-		data: movieData,
-		isLoading: loadingMovies,
-		status: statusMovie,
-	} = useQuery<any>({
+	const { data: movieData, isLoading: loadingMovies } = useQuery<any>({
 		queryKey: [
 			"/discover/movie",
 			{
 				page,
 				include_adult: false,
-				include_vide: false,
+				include_video: false,
 				language: "en-US",
 			},
 			"",
 		],
-		enabled: !state.search,
+		enabled: !state.search && state.filter === "all",
+	});
+
+	// filter data
+	const { data: filterData, isLoading: loadingFilter } = useQuery<any>({
+		queryKey: [
+			`/movie/${state.filter}`,
+			{
+				page,
+				include_adult: false,
+				include_video: false,
+				language: "en-US",
+			},
+			"",
+		],
+		enabled: state.filter !== "all",
 	});
 
 	/**
@@ -83,27 +92,33 @@ const Index = () => {
 		setSearchParams({
 			page: currentPage,
 			sort: state.search,
-			filter: state.filter,
+			filter: state.filter as Filter,
 			search: state.search,
 		});
 		state.updatePage(currentPage);
 	};
-	console.log(statusMovie);
-	const isLoading = loadingMovies || loadingSearch;
-	const dataToRender = state.search ? dataSearch?.results : movieData?.results;
+
+	const isLoading = loadingMovies || loadingSearch || loadingFilter;
+	const dataToRender = state.search
+		? dataSearch?.results
+		: state.filter !== "all"
+		? filterData?.results
+		: movieData?.results;
 	const totalPages = state.search
 		? dataSearch?.total_pages
+		: state.filter !== "all"
+		? filterData?.total_pages
 		: movieData?.total_pages;
 
 	return (
 		<div className="font-extrabold w-screen text-shadow-cyan-300 text-6xl">
 			{isLoading ? (
-				<div className="h-screen w-screen flex justify-center items-center text-black text-9xl">
+				<div className="h-screen flex justify-center items-center text-black text-9xl">
 					<Loader />
 				</div>
 			) : (
 				<>
-					<div className="flex flex-wrap gap-4">
+					<div className="flex flex-wrap gap-4 ">
 						{dataToRender?.map((movie: any, index: number) => (
 							<Card
 								onClick={() => navigate(`/detail-page/${movie.id}`)}
