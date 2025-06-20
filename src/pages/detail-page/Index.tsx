@@ -6,6 +6,7 @@ import Loader from "../../components/atoms/Loader";
 
 const Index = () => {
 	const { id } = useParams();
+
 	const { data: movieDetail, isLoading } = useQuery<any>({
 		queryKey: [
 			`/movie/${id}`,
@@ -69,8 +70,8 @@ const Index = () => {
 						background-size: cover;
 						height: 55vh;
 						position:relative;
-						// width:100%;
-    					background-position: top calc((50vw - 200px) - 900px) left;
+
+    					// background-position: top calc((50vw - 200px) - 900px) left;
 						padding: 2rem 0;
 					}
 					.custom-bg {

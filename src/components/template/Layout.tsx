@@ -1,10 +1,45 @@
-import React from "react";
+import React, { useState, type ChangeEvent } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import SearchInput from "../moleclues/SearchInput";
+import { useSearchParams } from "react-router-dom";
+import { useFilter } from "../../store/filter.store";
 
 const Layout = () => {
 	const location = useLocation();
 	const detailPage = location.pathname.includes("detail-page");
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [search, setSearch] = useState<string>("");
+	const page = searchParams.get("page") || "1";
+	const sort = searchParams.get("sort") || "asc";
+	const filter = searchParams.get("page") || "all";
+
+	const { ...state } = useFilter();
+
+	const searchClick = () => {
+		setSearchParams({
+			search,
+			sort,
+			page,
+			filter,
+		});
+		state.updateSearch(search);
+	};
+
+	// const searchEnter = () => {
+	// 	setSearchParams({
+	// 		search,
+	// 		sort,
+	// 		page,
+	// 		filter,
+	// 	});
+	// 	state.updateSearch(search);
+	// };
+
+	const changeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+		// state.updateSearch(e.target.value);
+		setSearch(e.target.value);
+	};
 
 	return (
 		<>
@@ -19,7 +54,17 @@ const Layout = () => {
 					>
 						IamMovie
 					</Link>
-					<Link to="/">Home</Link>
+					{detailPage ? (
+						""
+					) : (
+						<SearchInput
+							// onKeyup={searchEnter}
+							type="text"
+							value={search}
+							onChange={changeSearch}
+							onClick={searchClick}
+						/>
+					)}
 				</div>
 			</nav>
 			<div
