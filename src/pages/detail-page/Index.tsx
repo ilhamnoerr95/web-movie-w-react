@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { useParams } from "react-router-dom";
 import Card from "../../components/organization/Card";
 import Loader from "../../components/atoms/Loader";

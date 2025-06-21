@@ -1,4 +1,3 @@
-import React from "react";
 import Input from "../atoms/Input";
 import type { ISearchPayload } from "../../types/components/Input.types";
 import Button from "../atoms/button";

@@ -1,4 +1,3 @@
-import React from "react";
 import type { InputPayload } from "../../types/components/Input.types";
 
 const Input = (props: InputPayload) => {
