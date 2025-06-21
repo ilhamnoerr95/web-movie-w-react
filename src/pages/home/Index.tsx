@@ -91,7 +91,6 @@ const Index = () => {
 	const handlePagination = (currentPage: number | bigint | any) => {
 		setSearchParams({
 			page: currentPage,
-			sort: state.search,
 			filter: state.filter as Filter,
 			search: state.search,
 		});
