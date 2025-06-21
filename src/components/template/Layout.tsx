@@ -30,11 +30,12 @@ const Layout = () => {
 
 	const searchClick = () => {
 		setSearchParams({
-			search,
 			page,
-			filter,
+			filter: "all",
+			search,
 		});
 		state.updateSearch(search);
+		state.updateFilter("all");
 	};
 
 	// const searchEnter = () => {
@@ -55,9 +56,10 @@ const Layout = () => {
 		setSearchParams({
 			page,
 			filter: selected,
-			search,
+			search: "",
 		});
 		state.updateFilter(selected);
+		state.updateSearch("");
 	};
 
 	return (
