@@ -4,7 +4,7 @@ import type { ISearchPayload } from "../../types/components/Input.types";
 import Button from "../atoms/button";
 
 const SearchInput = (props: ISearchPayload) => {
-	const { onChange, onClick, value, onKeyup } = props;
+	const { onChange, onClick, value, onKeyup, defaultValue } = props;
 	return (
 		<div className="flex gap-4">
 			<Input
@@ -14,6 +14,7 @@ const SearchInput = (props: ISearchPayload) => {
 				onChange={onChange}
 				onKeyup={onKeyup}
 				value={value}
+				defaultValue={defaultValue}
 				className="input-search"
 			/>
 			<Button

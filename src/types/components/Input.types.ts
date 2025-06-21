@@ -19,6 +19,7 @@ export type InputPayload = {
 	placeholder?: string;
 	disabled?: boolean;
 	required?: boolean;
+	defaultValue?: string;
 };
 
 export interface ISearchPayload extends InputPayload {

@@ -12,10 +12,12 @@ const Input = (props: InputPayload) => {
 		className = false,
 		required = false,
 		onKeyup,
+		defaultValue,
 	} = props;
 
 	return (
 		<input
+			defaultValue={defaultValue || ""}
 			value={value}
 			onChange={(e) => onChange(e)}
 			className={className || ""}

@@ -22,6 +22,8 @@ const Layout = () => {
 	const [search, setSearch] = useState<string>("");
 	const page = searchParams.get("page") || "1";
 	const filter = searchParams.get("filter") || "";
+	const searchs = searchParams.get("search") || "";
+
 	const [selected, setSelected] = useState<Filter>(filter as Filter);
 
 	const { ...state } = useFilter();
@@ -79,6 +81,7 @@ const Layout = () => {
 							// onKeyup={searchEnter}
 							type="text"
 							value={search}
+							defaultValue={searchs}
 							onChange={changeSearch}
 							onClick={searchClick}
 						/>
@@ -125,7 +128,7 @@ const Layout = () => {
 				<Outlet />
 			</div>
 
-			<footer className="text-center min-h-10 font-medium">
+			<footer className="text-center min-h-10 font-mediu text-black">
 				@copyright by ilhamnrachman
 			</footer>
 			<style>
